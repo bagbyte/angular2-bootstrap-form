@@ -1,21 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Input, Output, EventEmitter } from '@angular/core'
 import { Entity, FieldDefinition } from '../../models/entity.model'
 
-@Component({
-    selector: 'form-input',
-    template: `
-        <div class="item form-group" [class.bad]="!isValid()">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" [attr.for]="_fieldIdentifier">{{ _label }} <span *ngIf="_required" class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <input [type]="_type" [id]="_fieldIdentifier" (change)="onValueChanged($event)" [required]="_required" [disabled]="_readonly" [class]="_className" [placeholder]="_placeholder" [(ngModel)]="_value">
-                <span *ngIf="_showIcon" [class]="_iconClass"></span>
-            </div>
-            <div class="alert" style="padding-top:6px;padding-bottom:6px;" *ngIf="!isValid()">{{ _errorMessage }}</div>
-        </div>
-    `
-})
-export class FormInputComponent {
+export class FormBaseComponent {
     @Input() entity: Entity
     @Input() property: string
 
@@ -34,6 +20,7 @@ export class FormInputComponent {
     _required: boolean;
     _label: string;
     _errorMessage: string = ''
+    _values: Array<{id:string, value:string}> = [];
 
     public ngOnInit() {
         this._entityName = this.entity.constructor.name.toLowerCase()
@@ -44,13 +31,23 @@ export class FormInputComponent {
         this._iconClass = this.getIconClass()
         this._showIcon = this.hasIcon()
         this._type = this.getType()
-        this._placeholder = this._definition.input.placeholder ? this._definition.input.placeholder : ''
+        this._placeholder = this._definition.input.placeholder
         this._readonly = this._definition.input.readOnly
         this._required = this._definition.required
         this._label = this._definition.input.label
+        this._values = this._definition.input.values
 
         let value = this.entity.getPropertyValue(this.property)
-        this._value = (value) ? value : ''
+        if (value)
+            this._value = value
+        else {
+            if (this._values.length > 0) {
+                this._value = this._values[0].id
+                this.entity.setPropertyValue(this.property, this._value);
+            }
+            else
+                this._value = ''
+        }
     }
 
     private getIconClass() : string {
