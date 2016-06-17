@@ -1,3 +1,4 @@
 .idea/
-node_modules/
-typings/
+example/dist
+node_modules
+typings

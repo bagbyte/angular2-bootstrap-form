@@ -5,7 +5,7 @@ export class FormBaseComponent {
     @Input() entity: Entity
     @Input() property: string
 
-    @Output() valueChanged = new EventEmitter();
+    @Output() onValueChanged = new EventEmitter();
 
     _definition: FieldDefinition
     _entityName: string
@@ -64,7 +64,7 @@ export class FormBaseComponent {
 
     private onValueChanged(event) {
         this.entity.setPropertyValue(this.property, event.target.value);
-        this.valueChanged.next(event.target.value);
+        this.onValueChanged.next(event.target.value);
     }
 
     private getType() : string {

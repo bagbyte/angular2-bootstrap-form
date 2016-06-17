@@ -15,6 +15,7 @@ export class FieldError {
 
 export class FieldDefinition {
     type: FieldType
+    entityClass: string
     initialValue: any
     required: boolean = false
     minLenght: number
@@ -24,6 +25,7 @@ export class FieldDefinition {
     error: FieldError = new FieldError()
     jsonKey: string
     showInList: boolean = true
+    visible: boolean = true
     input: InputDefinition = new InputDefinition()
 
     hasError() : boolean { return this.error.hasError() }

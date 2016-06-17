@@ -11,7 +11,9 @@ export interface IEntity {
 }
 
 export class Entity implements IEntity {
-    id: number
+    id: any // can be String or Number
+
+    resourcePath: string
 
     properties: { [key:string]:FieldDefinition; } = {}
 
@@ -42,6 +44,10 @@ export class Entity implements IEntity {
 
     setPropertyValue(property: string, value: any) {
         this[property] = value
+    }
+    
+    isPropertyVisible(property: string) : boolean {
+        return this.getPropertyDescription(property).visible
     }
 
     getPropertyDescription(property: string) : FieldDefinition {
