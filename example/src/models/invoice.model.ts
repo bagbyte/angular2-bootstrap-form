@@ -17,7 +17,7 @@ export class Invoice extends Entity {
             type: FieldType.Date,
             required: false,
             input: InputDefinition.fromMap({
-                type: InputType.Date,
+                type: InputType.Text, // TODO: change name
                 label: 'Date'
             })
         }),

@@ -1,7 +1,10 @@
 export enum FieldType {
     String,
     Number,
+    Time,
     Date,
+    Array,
+    DateTime,
     Boolean,
     Coordinates,
     Entity,
@@ -11,13 +14,13 @@ export enum FieldType {
 export enum InputType {
     None,
     Hidden,
-    Date,
+    Static,
     Text,
     Textarea,
     Checkbox,
-    Map,
     Select,
+    Map,
     Entity,
     EntityCollection
-    // TODO: Boolean, File, Image
+    // TODO: Map, File, Image
 }

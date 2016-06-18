@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
-import { Entity, FieldDefinition } from '../../models/entity.model'
+import { Entity } from '../../models/entity.model'
+import { FieldDefinition } from '../../models/field.model'
+import { FieldType } from '../../models/enums.model'
 
 @Component({
     selector: 'form-entity-collection',
@@ -131,7 +133,7 @@ export class FormEntityCollectionComponent {
             }
         }
     }
-    
+
     private entitySaveCancelled() {
         this._subEntity = null
     }
@@ -141,7 +143,7 @@ export class FormEntityCollectionComponent {
         this._isEntityNew = true;
     }
 
-    private onPropertyChanged(value: {property: string, value: string}) {
-        this.onEntityPropertyChanged.next({entity: this.property, property: value.property, value: value.value})
+    private onPropertyChanged(value: {property: string, value: string, type: FieldType}) {
+        this.onEntityPropertyChanged.next({entity: this.property, property: value.property, value: value.value, type: value.type})
     }
 }

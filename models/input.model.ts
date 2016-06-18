@@ -6,7 +6,7 @@ export class InputDefinition {
     icon: string
     placeholder: string
     readOnly: boolean = false
-    values: Array<{id:string, value:any}> = []
+    values: Array<{id:any, value:any}> = []
 
     static fromMap(map: Object) : InputDefinition {
         var definition = new InputDefinition();
@@ -31,6 +31,8 @@ export class InputDefinition {
     isTextarea() : boolean { return this.type == InputType.Textarea }
 
     isCheckbox() : boolean { return this.type == InputType.Checkbox }
+
+    isStatic() : boolean { return this.type == InputType.Static }
 
     isEntity() : boolean { return this.type == InputType.Entity }
 

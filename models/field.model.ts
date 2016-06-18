@@ -135,4 +135,20 @@ export class FieldDefinition {
 
         return true
     }
+
+    isArray() : boolean {
+        return this.type == FieldType.Array
+    }
+
+    isTime() : boolean {
+        return this.type == FieldType.Time
+    }
+
+    isDate() : boolean {
+        return this.type == FieldType.Date
+    }
+
+    isDateTime() : boolean {
+        return this.type == FieldType.DateTime
+    }
 }

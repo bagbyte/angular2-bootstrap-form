@@ -13,7 +13,7 @@ export interface IEntity {
 export class Entity implements IEntity {
     id: any // can be String or Number
 
-    resourcePath: string
+    static resourcePath: string
 
     properties: { [key:string]:FieldDefinition; } = {}
 
