@@ -37,6 +37,9 @@ export class FormFieldComponent {
 
     public ngOnInit() {
         this._field = this.entity.getPropertyDescription(this.property)
+
+        if (this.property == 'header')
+            console.log(this.entity)
     }
 
     private isInput() : boolean {
@@ -64,7 +67,7 @@ export class FormFieldComponent {
     }
 
     private isEntityCollection() : boolean {
-        return this._field.input.isEntity()
+        return this._field.input.isEntityCollection()
     }
 
     private isStatic() : boolean {

@@ -4,7 +4,7 @@ import { InputDefinition } from '../../../models/input.model'
 import { FieldType, InputType } from '../../../models/enums.model'
 
 export class Product extends Entity {
-    resourcePath: string = 'products'
+    static resourcePath: string = 'products'
 
     properties: { [key:string]: FieldDefinition } = {
         'id': FieldDefinition.fromMap({

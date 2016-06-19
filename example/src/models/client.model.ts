@@ -5,7 +5,7 @@ import { FieldType, InputType } from '../../../models/enums.model'
 import { Address } from './address.model'
 
 export class Client extends Entity {
-    resourcePath: string = 'clients'
+    static resourcePath: string = 'clients'
 
     properties: { [key:string]: FieldDefinition } = {
         'id': FieldDefinition.fromMap({
@@ -34,7 +34,8 @@ export class Client extends Entity {
         }),
         'address': FieldDefinition.fromMap({
             type: FieldType.Entity,
-            entityClass: Address,
+            initialValue: new Address(),
+            entityClass: Address.getCLassName(),
             required: false,
             input: InputDefinition.fromMap({
                 type: InputType.Entity,

@@ -23,7 +23,20 @@ export class Entity implements IEntity {
 
         Object.keys(this.properties).forEach(property => {
             var description: FieldDefinition = this.getPropertyDescription(property)
-            if (description.initialValue)
+            if (description.type == FieldType.Entity) {
+                if (!description.initialValue)
+                    throw Error('Missing initialValue for property ' + property)
+
+                this.setPropertyValue(property, description.initialValue)
+            }
+            else if (description.type == FieldType.EntityCollection) {
+                if (!description.initialValue)
+                    throw Error('Missing initialValue for property ' + property)
+
+                let entities: Entity[] = []
+                this.setPropertyValue(property, entities)
+            }
+            else if (description.initialValue)
                 this.setPropertyValue(property, description.initialValue)
             else
                 this.setPropertyValue(property, null)
@@ -128,5 +141,10 @@ export class Entity implements IEntity {
 
     propertyList() : string[] {
         return Object.keys(this.properties)
+    }
+
+    static getCLassName() : string {
+        let name : string = this.toString();
+        return name.substring(name.indexOf(' ')+1, name.indexOf('()'))
     }
 }

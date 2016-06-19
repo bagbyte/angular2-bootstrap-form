@@ -4,7 +4,7 @@ import { FormBaseComponent } from './form-base.component'
 @Component({
     selector: 'form-checkbox',
     template: `
-        <div class="item form-group" [class.bad]="!isValid()">
+        <div class="item form-group" [class.has-error]="!isValid()">
             <label class="control-label col-md-3 col-sm-3 col-xs-12" [attr.for]="_fieldIdentifier">{{ _label }} <span *ngIf="_required" class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -14,8 +14,8 @@ import { FormBaseComponent } from './form-base.component'
                         <input [type]="_type" [value]="_choice.id"> {{_choice.value}}
                     </label>
                 </div>
+                <div class="help-block">{{ getError() }}</div>
             </div>
-            <div class="alert">{{ getError() }}</div>
         </div>
     `
 })

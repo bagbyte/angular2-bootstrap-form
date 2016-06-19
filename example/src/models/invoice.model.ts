@@ -6,7 +6,7 @@ import { Client } from './client.model'
 import { Product } from './product.model'
 
 export class Invoice extends Entity {
-    resourcePath: string = 'invoices'
+    static resourcePath: string = 'invoices'
 
     properties: { [key:string]: FieldDefinition } = {
         'id': FieldDefinition.fromMap({
@@ -15,6 +15,7 @@ export class Invoice extends Entity {
         }),
         'date': FieldDefinition.fromMap({
             type: FieldType.Date,
+            initialValue: new Date(),
             required: false,
             input: InputDefinition.fromMap({
                 type: InputType.Text, // TODO: change name
@@ -23,7 +24,8 @@ export class Invoice extends Entity {
         }),
         'client': FieldDefinition.fromMap({
             type: FieldType.Entity,
-            entityClass: Client,
+            initialValue: new Client(),
+            entityClass: Client.getCLassName(),
             required: true,
             input: InputDefinition.fromMap({
                 type: InputType.Select,
@@ -32,7 +34,8 @@ export class Invoice extends Entity {
         }),
         'products': FieldDefinition.fromMap({
             type: FieldType.EntityCollection,
-            entityClass: Product,
+            initialValue: new Product(),
+            entityClass: Product.getCLassName(),
             required: false,
             input: InputDefinition.fromMap({
                 type: InputType.EntityCollection,

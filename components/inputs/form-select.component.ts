@@ -4,16 +4,16 @@ import { FormBaseComponent } from './form-base.component'
 @Component({
     selector: 'form-select',
     template: `
-        <div class="item form-group" [class.bad]="!isValid()">
+        <div class="item form-group" [class.has-error]="!isValid()">
             <label class="control-label col-md-3 col-sm-3 col-xs-12" [attr.for]="_fieldIdentifier">{{ _label }} <span *ngIf="_required" class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class="form-control" [multiple]="_multiple" rows="3" [id]="_fieldIdentifier" [disabled]="_readonly" [ngModel]="_value" (ngModelChange)="_onValueChanged($event)" >
+                <select class="form-control" [multiple]="_multiple" [id]="_fieldIdentifier" [disabled]="_readonly" (change)="_onValueChanged($event)" >
                     <option *ngIf="_placeholder">{{_placeholder}}</option>
                     <option *ngFor="let o of _values" [value]="o.id">{{o.value}}</option>
                 </select>
+                <div class="help-block" *ngIf="!isValid()">{{ _errorMessage }}</div>
             </div>
-            <div class="alert" style="padding-top:6px;padding-bottom:6px;" *ngIf="!isValid()">{{ _errorMessage }}</div>
         </div>
     `
 })

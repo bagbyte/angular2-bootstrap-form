@@ -1,10 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core'
+import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core'
+import { FormFieldComponent } from '../form-field.component'
 import { Entity } from '../../models/entity.model'
 import { FieldDefinition } from '../../models/field.model'
 import { FieldType } from '../../models/enums.model'
 
 @Component({
     selector: 'form-entity-collection',
+    directives: [forwardRef(() => FormFieldComponent)],
     styles: ['h2, h4, th { text-transform:capitalize; }'],
     template: `
         <div class="entity">
@@ -84,7 +86,7 @@ export class FormEntityCollectionComponent {
     @Output() onEntityAdded = new EventEmitter();
     @Output() onEntityRemoved = new EventEmitter();
 
-    _subEntities: Array<Entity>
+    _subEntities: Entity[] = []
     _entityName: string
     _definition: FieldDefinition
 
@@ -97,7 +99,7 @@ export class FormEntityCollectionComponent {
         this._subEntities = this.entity.getPropertyValue(this.property)
 
         this._definition = this.entity.getPropertyDescription(this.property)
-        this._dumpEntity = window[this._definition.entityClass]
+        this._dumpEntity = this._definition.initialValue
 
         this._entityName = this._dumpEntity.constructor.name.toLowerCase()
     }

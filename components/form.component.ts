@@ -39,8 +39,8 @@ export class FormComponent {
         this.onPropertyChanged.next(value);
     }
 
-    private _onFormSubmit(value) {
-        this.onFormSubmit.next(value);
+    private _onFormSubmit(event) {
+        this.onFormSubmit.next(this.entity);
     }
 
     private _onEntityPropertyChanged(value) {

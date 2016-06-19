@@ -98,9 +98,11 @@ export class Address extends Entity {
         this.setDefaults()
     }
 
-    private getCountryList() : Array<{id:string, value:any}> {
+    private getCountryList() : Array<{id:any, value:any}> {
         return [
-            {id: 'IT', value: 'Italy'}
+            {id: 'IT', value: 'Italy'},
+            {id: 'US', value: 'USA'},
+            {id: 'DE', value: 'Germany'},
         ]
     }
 }

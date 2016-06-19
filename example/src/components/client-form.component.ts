@@ -19,22 +19,27 @@ export class ClientFormComponent {
     entity = new Client()
 
     private onPropertyChanged(value) {
-        console.log('onPropertyChanged called with object: ' + value)
+        console.log('onPropertyChanged called with object:')
+        console.log(value)
     }
 
     private onFormSubmit(value) {
-        console.log('onFormSubmit called with object: ' + value)
+        console.log('onFormSubmit called with object:')
+        console.log(value)
     }
 
     private onEntityPropertyChanged(value) {
-        console.log('onEntityPropertyChanged called with object: ' + value)
+        console.log('onEntityPropertyChanged called with object:')
+        console.log(value)
     }
 
     private onEntityAdded(value) {
-        console.log('onEntityAdded called with object: ' + value)
+        console.log('onEntityAdded called with object:')
+        console.log(value)
     }
 
     private onEntityRemoved(value) {
-        console.log('onEntityRemoved called with object: ' + value)
+        console.log('onEntityRemoved called with object:')
+        console.log(value)
     }
 }

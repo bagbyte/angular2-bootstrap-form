@@ -1,9 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core'
+import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core'
+import { FormFieldComponent } from '../form-field.component'
 import { Entity } from '../../models/entity.model'
 import { FieldType } from '../../models/enums.model'
 
 @Component({
     selector: 'form-entity',
+    directives: [forwardRef(() => FormFieldComponent)],
     styles: ['h2 { text-transform:capitalize; }'],
     template: `
         <div class="entity">
