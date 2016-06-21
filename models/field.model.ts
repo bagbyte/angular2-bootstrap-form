@@ -123,6 +123,7 @@ export class FieldDefinition {
     }
 
     private static isEntityValid(value: any, definition: FieldDefinition, throwException: boolean = false) : boolean {
+        // TODO: to be completed
         if (!value || !value.id) {
             if (throwException && definition.required)
                 throw new Error('Required')
