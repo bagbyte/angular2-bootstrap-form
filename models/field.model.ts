@@ -1,6 +1,8 @@
 import {FieldType} from "./enums.model";
 import {InputDefinition} from "./input.model";
 
+declare var moment: any
+
 export class FieldError {
     private message: string
 
@@ -52,12 +54,85 @@ export class FieldDefinition {
         if (definition.type == FieldType.Boolean)
             return true
 
+        if (definition.type == FieldType.Date)
+            return this.isDateValid(value, definition, throwException)
+
+        if (definition.type == FieldType.Time)
+            return this.isTimeValid(value, definition, throwException)
+
+        if (definition.type == FieldType.DateTime)
+            return this.isDateTimeValid(value, definition, throwException)
+
+        if (definition.type == FieldType.Entity)
+            return this.isEntityValid(value, definition, throwException)
+
         // TODO: Add FieldType.Coordinates check
 
         if (throwException)
             throw new TypeError('Field type not recognized: ' + definition.type)
         else
             return false
+    }
+
+    private static isDateValid(value: string, definition: FieldDefinition, throwException: boolean = false) : boolean {
+        if (!value) {
+            if (throwException && definition.required)
+                throw new Error('Required')
+            else
+                return !definition.required;
+        }
+
+        let valid: boolean = moment(value, 'DD/MM/YYYY', true).isValid()
+
+        if (!valid && throwException)
+            throw new Error('Date not valid')
+
+        return valid
+    }
+
+    private static isTimeValid(value: string, definition: FieldDefinition, throwException: boolean = false) : boolean {
+        if (!value) {
+            if (throwException && definition.required)
+                throw new Error('Required')
+            else
+                return !definition.required;
+        }
+
+        let valid: boolean = moment(value, 'HH:mm:ss', true).isValid()
+
+        if (!valid && throwException)
+            throw new Error('Time not valid')
+
+        return valid
+    }
+
+    private static isDateTimeValid(value: string, definition: FieldDefinition, throwException: boolean = false) : boolean {
+        if (!value) {
+            if (throwException && definition.required)
+                throw new Error('Required')
+            else
+                return !definition.required;
+        }
+
+        let valid: boolean = moment(value, moment().format(), true).isValid()
+
+        if (!valid && throwException)
+            throw new Error('Value not valid')
+
+        return valid
+    }
+
+    private static isEntityValid(value: any, definition: FieldDefinition, throwException: boolean = false) : boolean {
+        if (!value || !value.id) {
+            if (throwException && definition.required)
+                throw new Error('Required')
+            else
+                return !definition.required;
+        }
+
+        console.log(value)
+
+        return true
     }
 
     private static isStringValid(value: string, definition: FieldDefinition, throwException: boolean = false) : boolean {

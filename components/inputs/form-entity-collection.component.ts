@@ -35,7 +35,7 @@ import { FieldType } from '../../models/enums.model'
         </div>
         
         <!-- Edit Modal -->
-        <div class="modal fade" [id]="_entityName + 'EditModal'" tabindex="-1" role="dialog" aria-labelledby="expenseModalLabel">
+        <div class="modal fade" [id]="_entityName + 'EditModal'" tabindex="-1" role="dialog" aria-labelledby="expenseModalLabel" *ngIf="_subEntity">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -46,7 +46,7 @@ import { FieldType } from '../../models/enums.model'
         
                         <form id="expense-form" data-parsley-validate class="form-horizontal form-label-left">
                         
-                            <form-field *ngFor="let _property of _dumpEntity.propertyList()" [entity]="_entity" [property]="_property" (onPropertyChanged)="onPropertyChanged($event)"></form-field>
+                            <form-field *ngFor="let _property of _dumpEntity.propertyList()" [entity]="_subEntity" [property]="_property" (onPropertyChanged)="onPropertyChanged($event)"></form-field>
         
                         </form>
                     </div>

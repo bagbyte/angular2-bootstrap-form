@@ -1,6 +1,8 @@
 import {FieldDefinition} from "./field.model";
 import {FieldType} from "./enums.model";
 
+declare var moment:any
+
 export interface IEntity {
     id: number
 
@@ -23,7 +25,25 @@ export class Entity implements IEntity {
 
         Object.keys(this.properties).forEach(property => {
             var description: FieldDefinition = this.getPropertyDescription(property)
-            if (description.type == FieldType.Entity) {
+            if (description.type == FieldType.Date || description.type == FieldType.Time || description.type == FieldType.DateTime) {
+                let date: Date = new Date()
+                if (description.initialValue) {
+                    if (description.initialValue instanceof String) {
+                        this.setPropertyValue(property, description.initialValue)
+                        return
+                    }
+                    if (description.initialValue instanceof Date)
+                        date = description.initialValue
+                }
+
+                if (description.type == FieldType.Date)
+                    this.setPropertyValue(property, moment(date).format('DD/MM/YYYY'))
+                else if (description.type == FieldType.Time)
+                    this.setPropertyValue(property, moment(date).format('HH:mm:ss'))
+                else if (description.type == FieldType.DateTime)
+                    this.setPropertyValue(property, moment(date).format())
+            }
+            else if (description.type == FieldType.Entity) {
                 if (!description.initialValue)
                     throw Error('Missing initialValue for property ' + property)
 
